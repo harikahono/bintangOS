@@ -11,13 +11,19 @@ export const DIRS: { id: FMDirectory; label: string; icon: string }[] = [
   { id: 'public',    label: 'Public',    icon: '📂' },
 ]
 
+const BASE = import.meta.env.BASE_URL
+
 export function useFileManager() {
   const activeDir        = ref<FMDirectory>('documents')
   const selected         = ref<string | null>(null)
   const selectedProject  = ref<Project | null>(null)
   const selectedPicture  = ref<PictureEntry | null>(null)
   const music            = musicData as MusicEntry[]
-  const pictures         = picturesData as PictureEntry[]
+
+  const pictures = (picturesData as PictureEntry[]).map(p => ({
+    ...p,
+    url: `${BASE}${p.name}`,
+  }))
 
   const featuredProjects = computed(() => projectsData.filter(p => p.featured) as Project[])
   const collabProjects   = computed(() => projectsData.filter(p => p.type === 'collab') as Project[])

@@ -1,38 +1,8 @@
 [
-  {
-    "id": "pic-1",
-    "name": "wallpaper.webp",
-    "url": "/wallpaper.webp",
-    "date": "2026-03-10"
-  },
-  {
-    "id": "pic-2",
-    "name": "bintangos.webp",
-    "url": "/bintangos.webp",
-    "date": "2026-03-10"
-  },
-    {
-        "id": "pic-3",
-        "name": "enola.webp",
-        "url": "/enola.webp",
-        "date": "2024-10-24"
-    },
-    {
-        "id": "pic-4",
-        "name": "rekah.webp",
-        "url": "/rekah.webp",
-        "date": "2017-06-09"
-    },
-    {
-        "id": "pic-5",
-        "name": "tshirt.webp",
-        "url": "/tshirt.webp",
-        "date": "2026-03-08"
-    },
-    {
-        "id": "pic-6",
-        "name": "ray.webp",
-        "url": "/ray.webp",
-        "date": "2024-10-24"
-    }
+  { "id": "pic-1", "name": "wallpaper.webp", "date": "2026-03-10" },
+  { "id": "pic-2", "name": "bintangos.webp", "date": "2026-03-10" },
+  { "id": "pic-3", "name": "enola.webp",     "date": "2024-10-24" },
+  { "id": "pic-4", "name": "rekah.webp",     "date": "2017-06-09" },
+  { "id": "pic-5", "name": "tshirt.webp",    "date": "2026-03-08" },
+  { "id": "pic-6", "name": "ray.webp",       "date": "2024-10-24" }
 ]
