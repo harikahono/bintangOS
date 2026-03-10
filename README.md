@@ -1,4 +1,5 @@
-```markdown
+markdown
+
 # BintangOS
 
 Retro-futuristic personal portfolio disguised as a quirky OS.  
@@ -21,7 +22,6 @@ Windows 95 vibes × Neon Genesis Evangelion aesthetic × terminal chaos.
 
 ### Terminal Cheat Sheet
 
-```
 help                → command list
 whoami              → about me
 ls projects/        → my works
@@ -31,7 +31,6 @@ neofetch            → system flex + photo
 ping bintang        → random savage quote
 clear               → wipe screen
 sudo rm -rf /       → nice try lol
-```
 
 ## Tech Stack
 
@@ -45,9 +44,6 @@ git clone https://github.com/harikahono/bintangOS.git
 cd bintangos
 pnpm install
 pnpm dev
-```
 
-MIT License · Made with spite & caffeine by [@harikahono](https://github.com/harikahono)
-
-Star if you hate normal portfolios too ⭐
+MIT License · Made with spite & caffeine by @harikahonoStar if you hate normal portfolios too 
 ```
