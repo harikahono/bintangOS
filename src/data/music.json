@@ -1,0 +1,63 @@
+[
+  {
+    "artist": "Title Fight",
+    "album": "Hyperview",
+    "year": 2015,
+    "genre": "Shoegaze / Post-Hardcore",
+    "note": "all i want is revenge"
+  },
+  {
+    "artist": "Enola",
+    "album": "Does Anyone Else",
+    "year": 2023,
+    "genre": "Shoegaze"
+  },
+  {
+    "artist": "The Story So Far",
+    "album": "What You Don't See",
+    "year": 2013,
+    "genre": "Pop-Punk"
+  },
+  {
+    "artist": "Whirr",
+    "album": "Raw Blue",
+    "year": 2024,
+    "genre": "Shoegaze"
+  },
+  {
+    "artist": "Rekah",
+    "album": "Kiamat",
+    "year": 2022,
+    "genre": "Screamo / Post-Hardcore"
+  },
+  {
+    "artist": "Sunlotus",
+    "album": "This Old House",
+    "year": 2019,
+    "genre": "Shoegaze / Dream Pop"
+  },
+  {
+    "artist": "eleventwelfth",
+    "album": "Similar",
+    "year": 2023,
+    "genre": "Midwest Emo / Math Pop"
+  },
+  {
+    "artist": "Loathe",
+    "album": "I Let It In And It Took Everything",
+    "year": 2020,
+    "genre": "Shoegaze / Metalcore"
+  },
+  {
+    "artist": "Movements",
+    "album": "Feel Something",
+    "year": 2017,
+    "genre": "Emo / Post-Hardcore"
+  },
+  {
+    "artist": "Knocked Loose",
+    "album": "A Tear in the Fabric of Life",
+    "year": 2021,
+    "genre": "Hardcore"
+  }
+]

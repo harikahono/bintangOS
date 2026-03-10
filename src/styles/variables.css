@@ -1,0 +1,40 @@
+:root {
+  /* ── Core Palette ── */
+  --bg-deepest:       #0d0b0f;
+  --bg-window:        #1c1218;
+  --bg-panel:         #161616;
+  --bg-taskbar:       #110e14;
+
+  --accent-teal:      #1abc9c;
+  --accent-teal-dim:  #0d8c6e;
+  --accent-purple:    #6b3fa0;
+  --accent-purple-dim:#4a2a72;
+  --accent-green:     #39ff14;
+  --accent-red:       #c0392b;
+
+  --text-primary:     #d4cfc8;
+  --text-muted:       #888888;
+  --text-dim:         #555555;
+
+  --border-subtle:    #2a2020;
+  --border-bright:    #3a2a3a;
+
+  /* ── Window Chrome ── */
+  --window-titlebar:  #1a1218;
+  --window-border:    #2e2030;
+  --window-btn-close: #c0392b;
+  --window-btn-min:   #e6ac00;
+  --window-btn-max:   #1abc9c;
+
+  /* ── Taskbar ── */
+  --taskbar-height:   42px;
+
+  /* ── Typography ── */
+  --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+  --font-ui:   'IBM Plex Sans', 'Segoe UI', sans-serif;
+
+  /* ── Timing ── */
+  --transition-fast: 80ms ease;
+  --transition-mid:  180ms ease;
+  --transition-slow: 350ms ease;
+}

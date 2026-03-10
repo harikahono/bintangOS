@@ -1,0 +1,97 @@
+[
+  {
+    "id": "project-vault",
+    "name": "Project Vault",
+    "type": "desktop-app",
+    "stack": ["Tauri", "React", "TypeScript", "SQLite", "Rust", "Framer Motion"],
+    "description": "Tactical ledger desktop app. Arasaka HUD aesthetic, multi-vault management, PDF export, WAL SQLite.",
+    "url": "https://github.com/harikahono/project-vault",
+    "featured": true
+  },
+  {
+    "id": "bitchess",
+    "name": "BitChess",
+    "type": "web-app",
+    "stack": ["Vue 3", "TypeScript", "chess.js", "Pinia", "Tailwind CSS"],
+    "description": "Neo-brutalist 8-bit chess terminal. Minimax AI with Alpha-Beta pruning, blitz timers, live PGN logs.",
+    "url": "https://bitchess.netlify.app",
+    "live": true,
+    "featured": true
+  },
+  {
+    "id": "heartly",
+    "name": "Heartly",
+    "type": "web-app",
+    "stack": ["Vue 3", "TypeScript", "Vite", "Pinia", "Tailwind CSS v4"],
+    "description": "Smart weekly meal planner. Drag & drop, allergy-aware, auto-generate 21 meals, shareable URL.",
+    "url": "https://heartly-meal-planner.netlify.app",
+    "live": true,
+    "featured": true
+  },
+  {
+    "id": "proto-hair",
+    "name": "Proto Hair",
+    "type": "mobile-app",
+    "stack": ["Flutter", "Dart"],
+    "description": "AR hair color prototype — Try Before You Dye. Mock camera, before/after slider, dark theme.",
+    "url": "https://github.com/harikahono/proto_hair",
+    "featured": true
+  },
+  {
+    "id": "bisindo-mobile",
+    "name": "BISINDO Mobile",
+    "type": "mobile-app",
+    "stack": ["HTML", "CSS", "JavaScript"],
+    "description": "Indonesian Sign Language mobile app. Collaborative project.",
+    "url": "https://github.com/bnyusntryo/bisindo_mobile",
+    "featured": true
+  },
+  {
+    "id": "lap-on-v2",
+    "name": "Lap-On v2",
+    "type": "collab",
+    "stack": ["TypeScript"],
+    "description": "Lap-On Indonesia platform v2. Collaborative org project.",
+    "url": "https://github.com/Lap-On-Indonesia/lap-on-v2",
+    "featured": false
+  },
+  {
+    "id": "pkumi-portal",
+    "name": "PKUMI Portal",
+    "type": "collab",
+    "stack": ["Next.js 16", "React 19", "Laravel 12", "Tailwind CSS v4"],
+    "description": "A writing platform for the members of the Istiqlal Mosque Ulama Cadre Education. Sharing knowledge, Islamic treasures, and writings that are useful for the community.",
+    "url": "https://portal.pkumionline.cloud",
+    "live": true,
+    "featured": false
+  },
+  {
+    "id": "wenpaywen",
+    "name": "WenPay",
+    "type": "collab",
+    "stack": ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Solana Wallet Adapter"],
+    "description": "Crypto-native payment platform. Spend SOL instantly on gift cards, game top-ups & subscriptions. Wallet connect only — no KYC, no account.",
+    "url": "https://wenpaywen.com",
+    "live": true,
+    "featured": false
+  },
+  {
+    "id": "simulasi-kontainer",
+    "name": "Simulasi Kontainer",
+    "type": "web-app",
+    "stack": ["Python"],
+    "description": "Simulation algorithm for optimal arrangement of goods in a container with visualization of packing results.",
+    "url": "https://github.com/harikahono/Simulasi-Penyusunan-Barang-dalam-Kontainer",
+    "featured": true
+  },
+    {
+    "id": "pmb-pkumi",
+    "name": "PMB PKUMI",
+    "type": "collab",
+    "stack": ["Next.js 16", "React 18", "Laravel 12", "Filament", "Tailwind CSS", "PrimeReact"],
+    "description": "Official Portal for New Student Admissions of the Mosque Istiqlal Ulama Cadre Education (PKUMI). Seize the opportunity for a full LPDP scholarship at PTIQ University Jakarta.",
+    "url": "https://pmbpku.istiqlal.or.id/",
+    "live": true,
+    "featured": false
+  }
+]
