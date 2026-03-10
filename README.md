@@ -6,7 +6,7 @@ Windows 95 vibes × Neon Genesis Evangelion aesthetic × terminal chaos.
 
 Live: https://harikahono.dev
 
-![BintangOS Preview](/assets/img/ssan.png)  
+![BintangOS Preview](src/assets/img/ssan.png)  
 
 ## What’s Inside
 
