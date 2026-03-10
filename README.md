@@ -4,9 +4,12 @@
 Retro-futuristic personal portfolio disguised as a quirky OS.  
 Windows 95 vibes × Neon Genesis Evangelion aesthetic × terminal chaos.
 
-Live: https://harikahono.dev
+**Live:** https://harikahono.dev
 
-![BintangOS Screenshot](https://raw.githubusercontent.com/harikahono/bintangOS/master/src/assets/img/ssan.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/harikahono/bintangOS/master/src/assets/img/ssan.png" alt="BintangOS Screenshot" width="80%">
+  <br><small>Terminal + Neofetch in action</small>
+</p>
 
 ## What’s Inside
 
