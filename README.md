@@ -1,42 +1,50 @@
-# bintangos
+```markdown
+# BintangOS
 
-This template should help get you started developing with Vue 3 in Vite.
+Retro-futuristic personal portfolio disguised as a quirky OS.  
+Windows 95 vibes × Neon Genesis Evangelion aesthetic × terminal chaos.
 
-## Recommended IDE Setup
+Live: https://harikahono.dev
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+![BintangOS Preview](/assets/img/ssan.png)  
 
-## Recommended Browser Setup
+## What’s Inside
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Draggable windows, taskbar, CRT glitches
+- Custom `bsh` terminal with savage commands
+- Dolphin-style File Manager
+- Neofetch with ASCII art & revenge quotes
+- Responsive (desktop heaven, mobile still ok)
 
-## Type Support for `.vue` Imports in TS
+### Terminal Cheat Sheet
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
+```
+help                → command list
+whoami              → about me
+ls projects/        → my works
+ls music/           → current rotation
+cat contact.txt     → hit me up
+neofetch            → system flex + photo
+ping bintang        → random savage quote
+clear               → wipe screen
+sudo rm -rf /       → nice try lol
 ```
 
-### Compile and Hot-Reload for Development
+## Tech Stack
 
-```sh
+Vue 3 · TypeScript · Vite · Tailwind CSS  
+Composables · JSON data files · Pure frontend fun
+
+## Quick Start
+
+```bash
+git clone https://github.com/harikahono/bintangOS.git
+cd bintangos
+pnpm install
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+MIT License · Made with spite & caffeine by [@harikahono](https://github.com/harikahono)
 
-```sh
-pnpm build
+Star if you hate normal portfolios too ⭐
 ```
