@@ -1,8 +1,14 @@
 <template>
-  <div id="os" class="crt-flicker">
+  <div v-if="isMobile" class="no-mobile font-mono">
+    <p class="no-mobile-icon">🖥️</p>
+    <p class="text-teal">BintangOS</p>
+    <p class="text-muted">This experience requires a desktop browser.</p>
+    <p class="text-dim">Minimum: 1024px width</p>
+  </div>
+  <div v-else id="os" class="crt-flicker">
     <div class="crt-overlay"></div>
     <Transition name="fade" mode="out-in">
-      <BiosScreen   v-if="bootStore.phase === 'bios'"    key="bios" />
+      <BiosScreen   v-if="bootStore.phase === 'bios'"        key="bios" />
       <SplashScreen v-else-if="bootStore.phase === 'splash'" key="splash" />
       <LoginScreen  v-else-if="bootStore.phase === 'login'"  key="login" />
       <div v-else-if="bootStore.phase === 'desktop'" key="desktop" class="desktop-shell">
@@ -15,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useBootStore } from '@/stores/boot'
 import BiosScreen    from '@/components/boot/BiosScreen.vue'
 import SplashScreen  from '@/components/boot/SplashScreen.vue'
@@ -25,10 +31,21 @@ import WindowManager from '@/components/window/WindowManager.vue'
 import Taskbar       from '@/components/taskbar/Taskbar.vue'
 
 const bootStore = useBootStore()
+const isMobile  = ref(false)
+
+function checkSize() {
+  isMobile.value = window.innerWidth < 1024
+}
 
 onMounted(() => {
+  checkSize()
+  window.addEventListener('resize', checkSize)
   ;(window as any).__bootTime = Date.now()
   bootStore.startBoot()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkSize)
 })
 </script>
 
@@ -46,6 +63,21 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
 }
+
+.no-mobile {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+
+.no-mobile-icon { font-size: 48px; }
 
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
 .fade-enter-from,   .fade-leave-to     { opacity: 0; }
