@@ -1,26 +1,40 @@
 <template>
-  <div class="login" @click="doLogin">
+  <div class="login" @click="doLogin" @keydown.enter="doLogin" tabindex="0" ref="loginEl">
     <div class="login-box">
       <div class="avatar">B</div>
       <p class="username font-mono">bintang</p>
+      <p class="quote font-mono">{{ randomQuote }}</p>
       <p class="hint text-muted font-mono">click to continue →</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useBootStore } from '@/stores/boot'
+import quotes from '@/data/quotes.json'
 
-const bootStore = useBootStore()
-
-onMounted(() => {
-  setTimeout(() => bootStore.login(), 2000)
-})
+const bootStore   = useBootStore()
+const loginEl     = ref<HTMLElement>()
+const randomQuote = quotes[Math.floor(Math.random() * quotes.length)] ?? ''
+let   timer: ReturnType<typeof setTimeout> | null = null
+let   loggedIn = false
 
 function doLogin() {
+  if (loggedIn) return
+  loggedIn = true
+  if (timer) clearTimeout(timer)
   bootStore.login()
 }
+
+onMounted(() => {
+  loginEl.value?.focus()
+  timer = setTimeout(doLogin, 2000)
+})
+
+onUnmounted(() => {
+  if (timer) clearTimeout(timer)
+})
 </script>
 
 <style scoped>
@@ -32,6 +46,7 @@ function doLogin() {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  outline: none;
 }
 
 .login-box {
@@ -65,6 +80,15 @@ function doLogin() {
   font-size: 18px;
   color: var(--text-primary);
   letter-spacing: 0.1em;
+}
+
+.quote {
+  font-size: 11px;
+  color: var(--text-dim);
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
 }
 
 .hint {

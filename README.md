@@ -9,7 +9,12 @@ Windows 95 vibes × Neon Genesis Evangelion aesthetic × terminal chaos.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/harikahono/bintangOS/master/src/assets/img/ssan.png" alt="BintangOS Screenshot" width="80%">
-  <br><small>Terminal + Neofetch in action</small>
+  <br><small>Starting Point</small>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/harikahono/bintangOS/master/src/assets/img/ssan2.png" alt="BintangOS Screenshot" width="80%">
+  <br><small>Terminal</small>
 </p>
 
 ## What’s Inside
@@ -45,5 +50,5 @@ cd bintangos
 pnpm install
 pnpm dev
 
-MIT License · Made with spite & caffeine by @harikahonoStar if you hate normal portfolios too 
+MIT License · Made with spite & caffeine by @harikahono if you hate normal portfolios too 
 ```

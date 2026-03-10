@@ -1,18 +1,20 @@
 import { ref } from 'vue'
 import projects from '@/data/projects.json'
-import music from '@/data/music.json'
-import contact from '@/data/contact.json'
-import quotes from '@/data/quotes.json'
-import asciiPhoto from '@/assets/ascii/photo.txt?raw'   // ← baru
+import music    from '@/data/music.json'
+import contact  from '@/data/contact.json'
+import quotes   from '@/data/quotes.json'
+import asciiPhoto from '@/assets/ascii/photo.txt?raw'
+import type { AppId } from '@/types'
 
 export interface TerminalLine {
   type: 'input' | 'output' | 'error' | 'neofetch' | 'blank'
   content: string
 }
 
-// Helper type-safe untuk random item
+const VALID_APPS: AppId[] = ['terminal', 'filemanager', 'contact', 'about']
+
 const getRandomItem = <T>(arr: readonly T[]): T => {
-  if (arr.length === 0) throw new Error('Array quotes kosong!')
+  if (arr.length === 0) throw new Error('Array kosong!')
   return arr[Math.floor(Math.random() * arr.length)]!
 }
 
@@ -40,6 +42,7 @@ const COMMANDS: Record<string, () => string[]> = {
     '  cat contact.txt — contact info',
     '  neofetch        — system info',
     '  uname -a        — os details',
+    '  open <app>      — terminal | filemanager | contact | about',
     '  clear           — clear terminal',
     '  sudo rm -rf /   — (try it)',
     '  ping bintang    — ping me',
@@ -50,13 +53,13 @@ const COMMANDS: Record<string, () => string[]> = {
     'Frontend / Fullstack dev.',
     'Stack: Vue 3 · TypeScript · Laravel · Tauri · Flutter',
     'Currently building: SEIRIS (TA) + BintangOS (this site)',
-    'Status: all i want is revenge',
+    'Status: Still Codeing...',
     '',
   ],
   'ls projects/': () => [
-    'total 6',
+    `total ${projects.length}`,
     ...projects.map(p =>
-      `${p.featured ? '★' : ' '} ${p.id.padEnd(20)} ${p.type.padEnd(14)} ${p.stack.slice(0,2).join(', ')}`
+      `${p.featured ? '★' : ' '} ${p.id.padEnd(20)} ${p.type.padEnd(14)} ${p.stack.slice(0, 2).join(', ')}`
     ),
     '',
   ],
@@ -70,7 +73,7 @@ const COMMANDS: Record<string, () => string[]> = {
     `name   : ${contact.name} (${contact.handle})`,
     `github : ${contact.github}`,
     `email  : ${contact.email}`,
-    `web    : ${contact.website}`,
+    `web    : ${contact.website ?? '--'}`,
     '',
     `"${contact.note}"`,
     '',
@@ -82,13 +85,13 @@ const COMMANDS: Record<string, () => string[]> = {
   'sudo rm -rf /': () => ['Permission denied. Nice try.', ''],
   'ping bintang': () => [
     'PING bintang (127.0.0.1)',
-    `64 bytes: icmp_seq=1 ttl=64 time=∞ ms`,
-    getRandomItem(quotes),
+    '64 bytes: icmp_seq=1 ttl=64 time=∞ ms',
+    getRandomItem(quotes as string[]),
     '',
   ],
 }
 
-export function useTerminal() {
+export function useTerminal(openApp?: (appId: AppId) => void) {
   const lines = ref<TerminalLine[]>([
     { type: 'output', content: 'BintangOS v1.0 — Type "help" for available commands.' },
     { type: 'blank',  content: '' },
@@ -99,8 +102,8 @@ export function useTerminal() {
       type: 'neofetch',
       content: JSON.stringify({
         photo: asciiPhoto.split('\n'),
-        info: NEOFETCH_INFO()
-      })
+        info:  NEOFETCH_INFO(),
+      }),
     })
     lines.value.push({ type: 'blank', content: '' })
   }
@@ -109,8 +112,24 @@ export function useTerminal() {
     const cmd = input.trim().toLowerCase()
     lines.value.push({ type: 'input', content: input })
     if (!cmd) return
-    if (cmd === 'clear') { lines.value = []; return }
+
+    if (cmd === 'clear')    { lines.value = []; return }
     if (cmd === 'neofetch') { runNeofetch(); return }
+
+    // open <app>
+    const openMatch = cmd.match(/^open\s+(\w+)$/)
+    if (openMatch) {
+      const appId = openMatch[1] as AppId
+      if (VALID_APPS.includes(appId) && openApp) {
+        openApp(appId)
+        lines.value.push({ type: 'output', content: `Opening ${appId}...` })
+      } else {
+        lines.value.push({ type: 'error', content: `bsh: open: unknown app '${openMatch[1]}'` })
+      }
+      lines.value.push({ type: 'blank', content: '' })
+      return
+    }
+
     const handler = COMMANDS[cmd]
     if (handler) {
       handler().forEach(l => lines.value.push({ type: 'output', content: l }))

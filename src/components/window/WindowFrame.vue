@@ -33,7 +33,9 @@ const props = defineProps<{ win: WindowState }>()
 const winStore = useWindowStore()
 
 const drag = useDraggable(
-  (x, y) => winStore.move(props.win.id, x, y),
+  (x, y) => {
+    if (!props.win.maximized) winStore.move(props.win.id, x, y)
+  },
   () => ({ x: props.win.x, y: props.win.y })
 )
 
@@ -65,6 +67,9 @@ const windowStyle = computed(() => {
 
 .window-frame.minimized  { display: none; }
 .window-frame.maximized  { border-radius: 0; border: none; }
+.window-frame.maximized .titlebar {
+  cursor: default;
+}
 
 .titlebar {
   display: flex;

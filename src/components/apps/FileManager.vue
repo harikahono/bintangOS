@@ -6,7 +6,7 @@
         v-for="dir in DIRS" :key="dir.id"
         class="sidebar-item font-mono"
         :class="{ active: activeDir === dir.id }"
-        @click="activeDir = dir.id; selectedProject = null"
+        @click="changeDir(dir.id)"
       >
         <span>{{ dir.icon }}</span> {{ dir.label }}
       </button>
@@ -39,13 +39,32 @@
           <span class="list-main">{{ m.artist }} — {{ m.album }}</span>
           <span class="list-meta text-muted">{{ m.year }}</span>
           <span class="list-tag text-dim">{{ m.genre }}</span>
+          
+          <a
+            v-if="m.youtube"
+            :href="m.youtube"
+            target="_blank"
+            rel="noopener"
+            class="yt-link font-mono"
+            @click.stop
+          >▶</a>
         </div>
       </div>
 
       <!-- Pictures -->
-      <div v-else-if="activeDir === 'pictures'" class="fm-empty font-mono text-muted">
-        <p>📷 No photos yet.</p>
-        <p class="text-dim">Coming soon...</p>
+      <div v-else-if="activeDir === 'pictures'" class="fm-grid">
+        <div
+          v-for="pic in pictures" :key="pic.id"
+          class="fm-item"
+          :class="{ selected: selected === pic.id }"
+          @click="selected = pic.id"
+          @dblclick="selectedPicture = pic"
+        >
+          <div class="item-icon pic-wrap">
+            <img :src="pic.url" :alt="pic.name" class="pic-thumbnail" />
+          </div>
+          <div class="item-name font-mono">{{ pic.name }}</div>
+        </div>
       </div>
 
       <!-- Public -->
@@ -62,7 +81,7 @@
       </div>
     </div>
 
-    <!-- Detail panel -->
+    <!-- Project detail panel -->
     <Transition name="slide">
       <div v-if="selectedProject" class="fm-detail">
         <button class="detail-close" @click="selectedProject = null">×</button>
@@ -77,35 +96,34 @@
         </a>
       </div>
     </Transition>
+
+    <!-- Picture lightbox panel -->
+    <Transition name="slide">
+      <div v-if="selectedPicture" class="fm-detail">
+        <button class="detail-close" @click="selectedPicture = null">×</button>
+        <img :src="selectedPicture.url" :alt="selectedPicture.name" class="pic-preview" />
+        <p class="font-mono text-teal" style="font-size:12px">{{ selectedPicture.name }}</p>
+        <p class="text-dim font-mono" style="font-size:11px">{{ selectedPicture.date }}</p>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import projectsData from '@/data/projects.json'
-import musicData    from '@/data/music.json'
-import type { Project } from '@/types'
+import { useFileManager, DIRS } from '@/composables/useFileManager'
 
-const DIRS = [
-  { id: 'documents', label: 'Documents', icon: '📁' },
-  { id: 'music',     label: 'Music',     icon: '🎵' },
-  { id: 'pictures',  label: 'Pictures',  icon: '🖼️' },
-  { id: 'public',    label: 'Public',    icon: '📂' },
-]
-
-const activeDir      = ref('documents')
-const selected       = ref<string | null>(null)
-const selectedProject = ref<Project | null>(null)
-const music          = musicData
-const featuredProjects = computed(() => projectsData.filter(p => p.featured) as Project[])
-const collabProjects   = computed(() => projectsData.filter(p => p.type === 'collab') as Project[])
-
-function typeIcon(type: string) {
-  if (type === 'web-app')     return '🌐'
-  if (type === 'desktop-app') return '🖥️'
-  if (type === 'mobile-app')  return '📱'
-  return '📂'
-}
+const {
+  activeDir,
+  selected,
+  selectedProject,
+  selectedPicture,
+  music,
+  pictures,
+  featuredProjects,
+  collabProjects,
+  changeDir,
+  typeIcon,
+} = useFileManager()
 </script>
 
 <style scoped>
@@ -188,6 +206,23 @@ function typeIcon(type: string) {
 .item-icon { font-size: 28px; }
 .item-name { font-size: 11px; color: var(--text-primary); word-break: break-word; }
 
+.pic-wrap { font-size: 0; }
+.pic-thumbnail {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+}
+
+.pic-preview {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: contain;
+  border: 1px solid var(--border-subtle);
+  max-height: 160px;
+}
+
 .fm-list {
   display: flex;
   flex-direction: column;
@@ -208,15 +243,17 @@ function typeIcon(type: string) {
 .list-meta { font-size: 11px; }
 .list-tag  { font-size: 10px; }
 
-.fm-empty {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 13px;
+.yt-link {
+  color: var(--accent-teal);
+  text-decoration: none;
+  font-size: 11px;
+  padding: 1px 6px;
+  border: 1px solid rgba(26,188,156,0.3);
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
 }
+.yt-link:hover { background: rgba(26,188,156,0.1); }
 
 .fm-detail {
   position: absolute;

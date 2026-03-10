@@ -3,9 +3,10 @@ import { ref } from 'vue'
 import type { BootPhase } from '@/types'
 
 export const useBootStore = defineStore('boot', () => {
-  const phase = ref<BootPhase>('bios')
-  const biosLines = ref<string[]>([])
+  const phase         = ref<BootPhase>('bios')
+  const biosLines     = ref<string[]>([])
   const splashProgress = ref(0)
+  let   skipped       = false
 
   const BIOS_MESSAGES = [
     'BintangOS BIOS v1.0.2  Copyright (C) 2026 harikahono',
@@ -36,24 +37,37 @@ export const useBootStore = defineStore('boot', () => {
   ]
 
   async function startBoot() {
+    skipped = false
     phase.value = 'bios'
     biosLines.value = []
 
     for (const line of BIOS_MESSAGES) {
+      if (skipped) return
       await delay(60 + Math.random() * 80)
+      if (skipped) return
       biosLines.value.push(line)
     }
 
     await delay(400)
+    if (skipped) return
     phase.value = 'splash'
 
     splashProgress.value = 0
     for (let i = 0; i <= 100; i += 2) {
+      if (skipped) return
       await delay(30)
       splashProgress.value = i
     }
 
     await delay(500)
+    if (skipped) return
+    phase.value = 'login'
+  }
+
+  function skipBoot() {
+    skipped = true
+    biosLines.value = [...BIOS_MESSAGES]
+    splashProgress.value = 100
     phase.value = 'login'
   }
 
@@ -66,7 +80,7 @@ export const useBootStore = defineStore('boot', () => {
     return SPLASH_MESSAGES[Math.min(idx, SPLASH_MESSAGES.length - 1)] ?? ''
   }
 
-  return { phase, biosLines, splashProgress, startBoot, login, getSplashMessage }
+  return { phase, biosLines, splashProgress, startBoot, skipBoot, login, getSplashMessage }
 })
 
 function delay(ms: number) {

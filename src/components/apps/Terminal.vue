@@ -47,26 +47,34 @@
 <script setup lang="ts">
 import { ref, watch, nextTick, onMounted } from 'vue'
 import { useTerminal } from '@/composables/useTerminal'
+import { useWindowStore } from '@/stores/windowManager'
+import type { AppId } from '@/types'
 
-const term = useTerminal()
-const outputEl  = ref<HTMLElement>()
-const inputEl   = ref<HTMLInputElement>()
+const winStore = useWindowStore()
+const term     = useTerminal((appId) => winStore.open(appId as AppId))
+
+const outputEl     = ref<HTMLElement>()
+const inputEl      = ref<HTMLInputElement>()
 const currentInput = ref('')
-const history   = ref<string[]>([])
-const historyIdx = ref(-1)
+const history      = ref<string[]>([])
+const historyIdx   = ref(-1)
 
-const CMDS = ['help', 'whoami', 'ls projects/', 'ls music/', 'cat contact.txt', 'neofetch', 'uname -a', 'clear', 'sudo rm -rf /', 'ping bintang']
+const CMDS = [
+  'help', 'whoami', 'ls projects/', 'ls music/', 'cat contact.txt',
+  'neofetch', 'uname -a', 'clear', 'sudo rm -rf /', 'ping bintang',
+  'open terminal', 'open filemanager', 'open contact', 'open about',
+]
 
 function parseNeofetch(content: string) {
-  const data = JSON.parse(content)
-  return data as { photo: string[], info: string[] }
+  return JSON.parse(content) as { photo: string[], info: string[] }
 }
 
 function submit() {
-  const cmd = currentInput.value
+  const cmd = currentInput.value.trim()
+  if (!cmd) { currentInput.value = ''; return }
   history.value.unshift(cmd)
   historyIdx.value = -1
-  term.execute(cmd)
+  term.execute(currentInput.value)
   currentInput.value = ''
   scrollBottom()
 }

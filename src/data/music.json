@@ -4,60 +4,69 @@
     "album": "Hyperview",
     "year": 2015,
     "genre": "Shoegaze / Post-Hardcore",
-    "note": "all i want is revenge"
+    "youtube": "https://music.youtube.com/search?q=Title+Fight+Hyperview"
   },
   {
     "artist": "Enola",
     "album": "Does Anyone Else",
     "year": 2023,
-    "genre": "Shoegaze"
+    "genre": "Shoegaze",
+    "youtube": "https://music.youtube.com/search?q=Enola+Does+Anyone+Else"
   },
   {
     "artist": "The Story So Far",
     "album": "What You Don't See",
     "year": 2013,
-    "genre": "Pop-Punk"
+    "genre": "Pop-Punk",
+    "youtube": "https://music.youtube.com/search?q=The+Story+So+Far+What+You+Don%27t+See"
   },
   {
     "artist": "Whirr",
     "album": "Raw Blue",
     "year": 2024,
-    "genre": "Shoegaze"
+    "genre": "Shoegaze",
+    "youtube": "https://music.youtube.com/search?q=Whirr+Raw+Blue"
   },
   {
     "artist": "Rekah",
     "album": "Kiamat",
     "year": 2022,
-    "genre": "Screamo / Post-Hardcore"
+    "genre": "Screamo / Post-Hardcore",
+    "youtube": "https://music.youtube.com/search?q=Rekah+Kiamat"
   },
   {
     "artist": "Sunlotus",
     "album": "This Old House",
     "year": 2019,
-    "genre": "Shoegaze / Dream Pop"
+    "genre": "Shoegaze / Dream Pop",
+    "youtube": "https://music.youtube.com/search?q=Sunlotus+This+Old+House"
   },
   {
     "artist": "eleventwelfth",
     "album": "Similar",
     "year": 2023,
-    "genre": "Midwest Emo / Math Pop"
+    "genre": "Midwest Emo / Math Pop",
+    "youtube": "https://music.youtube.com/search?q=eleventwelfth+Similar"
   },
   {
     "artist": "Loathe",
     "album": "I Let It In And It Took Everything",
     "year": 2020,
-    "genre": "Shoegaze / Metalcore"
+    "genre": "Shoegaze / Metalcore",
+    "youtube": "https://music.youtube.com/search?q=Loathe+I+Let+It+In+And+It+Took+Everything"
   },
   {
     "artist": "Movements",
     "album": "Feel Something",
     "year": 2017,
-    "genre": "Emo / Post-Hardcore"
+    "genre": "Emo / Post-Hardcore",
+    "youtube": "https://music.youtube.com/search?q=Movements+Feel+Something"
   },
   {
     "artist": "Knocked Loose",
     "album": "A Tear in the Fabric of Life",
     "year": 2021,
-    "genre": "Hardcore"
+    "genre": "Hardcore",
+    "youtube": "https://music.youtube.com/search?q=Knocked+Loose+A+Tear+in+the+Fabric+of+Life"
   }
 ]

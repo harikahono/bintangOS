@@ -1,32 +1,20 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { WindowState, AppId } from '@/types'
+import { APP_MAP } from '@/data/apps.config'
 
-const APP_DEFAULTS: Record<AppId, Omit<WindowState, 'id' | 'zIndex' | 'minimized' | 'maximized'>> = {
-  terminal: {
-    appId: 'terminal',
-    title: 'Terminal — bash',
-    x: 80, y: 60,
-    width: 700, height: 440,
-  },
-  filemanager: {
-    appId: 'filemanager',
-    title: 'Files — Dolphin',
-    x: 160, y: 80,
-    width: 760, height: 500,
-  },
-  contact: {
-    appId: 'contact',
-    title: 'contact.txt — Kate',
-    x: 220, y: 100,
-    width: 520, height: 360,
-  },
-  about: {
-    appId: 'about',
-    title: 'About This PC',
-    x: 300, y: 140,
-    width: 440, height: 320,
-  },
+const APP_TITLES: Record<AppId, string> = {
+  terminal:    'Terminal — bash',
+  filemanager: 'Files — Dolphin',
+  contact:     'contact.txt — Kate',
+  about:       'About This PC',
+}
+
+const APP_POSITIONS: Record<AppId, { x: number; y: number }> = {
+  terminal:    { x: 80,  y: 60  },
+  filemanager: { x: 160, y: 80  },
+  contact:     { x: 220, y: 100 },
+  about:       { x: 300, y: 140 },
 }
 
 export const useWindowStore = defineStore('windows', () => {
@@ -40,18 +28,22 @@ export const useWindowStore = defineStore('windows', () => {
     const minimized = windows.value.find(w => w.appId === appId && w.minimized)
     if (minimized) { minimized.minimized = false; focus(minimized.id); return }
 
-    const defaults = APP_DEFAULTS[appId]
-    const id = `${appId}-${Date.now()}`
+    const meta = APP_MAP[appId]
+    const pos  = APP_POSITIONS[appId]
     const offset = windows.value.length * 20
+    const id = `${appId}-${Date.now()}`
 
     windows.value.push({
-      ...defaults,
       id,
-      zIndex: ++zCounter,
+      appId,
+      title:     APP_TITLES[appId],
+      x:         pos.x + offset,
+      y:         pos.y + offset,
+      width:     meta.defaultWidth,
+      height:    meta.defaultHeight,
+      zIndex:    ++zCounter,
       minimized: false,
       maximized: false,
-      x: defaults.x + offset,
-      y: defaults.y + offset,
     })
   }
 

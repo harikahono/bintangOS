@@ -1,29 +1,40 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, onScopeDispose } from 'vue'
 import type { BatteryInfo } from '@/types'
 
 export const useSystemTrayStore = defineStore('systemTray', () => {
-  const now = ref(new Date())
+  const now     = ref(new Date())
   const battery = ref<BatteryInfo>({ level: 1, charging: false, supported: false })
-  const online = ref(navigator.onLine)
+  const online  = ref(navigator.onLine)
 
-  setInterval(() => { now.value = new Date() }, 1000)
+  // Clock
+  const clockTimer = setInterval(() => { now.value = new Date() }, 1000)
 
+  // Battery
   async function initBattery() {
-    if ('getBattery' in navigator) {
-      try {
-        const bat = await (navigator as any).getBattery()
-        battery.value = { level: bat.level, charging: bat.charging, supported: true }
-        bat.addEventListener('levelchange',   () => { battery.value.level    = bat.level })
-        bat.addEventListener('chargingchange',() => { battery.value.charging = bat.charging })
-      } catch {
-        battery.value.supported = false
-      }
+    if (!('getBattery' in navigator)) return
+    try {
+      const bat = await (navigator as any).getBattery()
+      battery.value = { level: bat.level, charging: bat.charging, supported: true }
+      bat.addEventListener('levelchange',    () => { battery.value.level    = bat.level })
+      bat.addEventListener('chargingchange', () => { battery.value.charging = bat.charging })
+    } catch {
+      battery.value.supported = false
     }
   }
 
-  window.addEventListener('online',  () => { online.value = true })
-  window.addEventListener('offline', () => { online.value = false })
+  // Network
+  const onOnline  = () => { online.value = true }
+  const onOffline = () => { online.value = false }
+  window.addEventListener('online',  onOnline)
+  window.addEventListener('offline', onOffline)
+
+  // Cleanup
+  onScopeDispose(() => {
+    clearInterval(clockTimer)
+    window.removeEventListener('online',  onOnline)
+    window.removeEventListener('offline', onOffline)
+  })
 
   initBattery()
 
@@ -36,10 +47,10 @@ export const useSystemTrayStore = defineStore('systemTray', () => {
   }
 
   function batteryIcon() {
-    if (!battery.value.supported) return '🔋'
-    if (battery.value.charging)   return '⚡'
-    if (battery.value.level > 0.75) return '🔋'
-    if (battery.value.level > 0.4)  return '🪫'
+    if (!battery.value.supported)     return '🔋'
+    if (battery.value.charging)       return '⚡'
+    if (battery.value.level > 0.75)   return '🔋'
+    if (battery.value.level > 0.4)    return '🪫'
     return '🔴'
   }
 

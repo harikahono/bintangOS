@@ -8,7 +8,7 @@
       <Transition name="pop">
         <div v-if="launcherOpen" class="launcher-popup" @click.stop>
           <button
-            v-for="app in APPS" :key="app.appId"
+            v-for="app in APP_REGISTRY" :key="app.appId"
             class="launcher-item font-mono"
             @click="openApp(app.appId)"
           >
@@ -47,25 +47,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useWindowStore } from '@/stores/windowManager'
 import { useSystemTrayStore } from '@/stores/systemTray'
+import { APP_REGISTRY } from '@/data/apps.config'
 import type { AppId } from '@/types'
 
 const winStore = useWindowStore()
-const tray = useSystemTrayStore()
+const tray     = useSystemTrayStore()
 const { now, online } = storeToRefs(tray)
 const { formatTime, formatDate, batteryIcon, batteryLabel } = tray
 
 const launcherOpen = ref(false)
-
-const APPS = [
-  { appId: 'terminal'    as AppId, label: 'Terminal',      icon: '⬛' },
-  { appId: 'filemanager' as AppId, label: 'Files',         icon: '📁' },
-  { appId: 'contact'     as AppId, label: 'contact.txt',   icon: '📄' },
-  { appId: 'about'       as AppId, label: 'About This PC', icon: '💻' },
-]
 
 function openApp(appId: AppId) {
   winStore.open(appId)
@@ -73,13 +67,12 @@ function openApp(appId: AppId) {
 }
 
 function appIcon(appId: AppId) {
-  const map: Record<AppId, string> = {
-    terminal: '⬛', filemanager: '📁', contact: '📄', about: '💻'
-  }
-  return map[appId]
+  return APP_REGISTRY.find(a => a.appId === appId)?.icon ?? '📄'
 }
 
-document.addEventListener('click', () => { launcherOpen.value = false })
+const closeOnClick = () => { launcherOpen.value = false }
+document.addEventListener('click', closeOnClick)
+onUnmounted(() => document.removeEventListener('click', closeOnClick))
 </script>
 
 <style scoped>

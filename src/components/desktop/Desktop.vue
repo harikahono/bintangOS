@@ -1,34 +1,39 @@
 <template>
-  <div class="desktop" @click="selectedIcon = null">
+  <div
+    class="desktop"
+    @click="selectedIcon = null"
+    @contextmenu.prevent="onRightClick"
+  >
     <div class="wallpaper"></div>
     <div class="icon-grid">
       <DesktopIcon
-        v-for="icon in ICONS"
-        :key="icon.appId"
-        :icon="icon"
-        :selected="selectedIcon === icon.appId"
-        @select="selectedIcon = icon.appId"
-        @open="winStore.open(icon.appId)"
+        v-for="app in APP_REGISTRY"
+        :key="app.appId"
+        :icon="app"
+        :selected="selectedIcon === app.appId"
+        @select="selectedIcon = app.appId"
+        @open="winStore.open(app.appId)"
       />
     </div>
+    <ContextMenu ref="ctxMenu" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useWindowStore } from '@/stores/windowManager'
+import { APP_REGISTRY } from '@/data/apps.config'
 import DesktopIcon from './DesktopIcon.vue'
+import ContextMenu from './ContextMenu.vue'
 import type { AppId } from '@/types'
 
-const winStore = useWindowStore()
+const winStore    = useWindowStore()
 const selectedIcon = ref<AppId | null>(null)
+const ctxMenu     = ref<InstanceType<typeof ContextMenu>>()
 
-const ICONS: { appId: AppId; label: string; icon: string }[] = [
-  { appId: 'terminal',    label: 'Terminal',      icon: '⬛' },
-  { appId: 'filemanager', label: 'Files',          icon: '📁' },
-  { appId: 'contact',     label: 'contact.txt',    icon: '📄' },
-  { appId: 'about',       label: 'About This PC',  icon: '💻' },
-]
+function onRightClick(e: MouseEvent) {
+  ctxMenu.value?.open(e.clientX, e.clientY)
+}
 </script>
 
 <style scoped>

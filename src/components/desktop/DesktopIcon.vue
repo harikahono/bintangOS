@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import type { AppId } from '@/types'
+import type { AppMeta } from '@/data/apps.config'
 
 defineProps<{
-  icon: { appId: AppId; label: string; icon: string }
+  icon: AppMeta
   selected: boolean
 }>()
 

@@ -15,7 +15,16 @@
 </template>
 
 <script setup lang="ts">
-const specs = [
+import { computed } from 'vue'
+
+const uptime = computed(() => {
+  const ms = Date.now() - ((window as any).__bootTime ?? Date.now())
+  const m  = Math.floor(ms / 60000)
+  const s  = Math.floor((ms % 60000) / 1000)
+  return `${m}m ${s}s`
+})
+
+const specs = computed(() => [
   { label: 'OS',      value: 'BintangOS v1.0 (harikahono Edition)' },
   { label: 'CPU',     value: 'Intel i9-BintangU @ ∞ GHz' },
   { label: 'RAM',     value: '∞ MB Creativity / 8GB DDR4' },
@@ -23,7 +32,8 @@ const specs = [
   { label: 'GPU',     value: 'Imagination Engine 3090 Ti' },
   { label: 'Display', value: `${screen.width} × ${screen.height}` },
   { label: 'Theme',   value: 'NGE Dark / Evangelion Edition' },
-]
+  { label: 'Uptime',  value: uptime.value },
+])
 </script>
 
 <style scoped>

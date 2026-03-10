@@ -4,25 +4,25 @@
       <span class="text-muted">contact.txt</span>
       <span class="badge text-dim">READ ONLY</span>
     </div>
-    <pre class="editor-body font-mono">{{ content }}</pre>
+    <pre class="editor-body font-mono">{{ header }}<a :href="'https://' + contact.github" target="_blank" rel="noopener" class="link">{{ contact.github }}</a>
+email    :  <a :href="'mailto:' + contact.email" class="link">{{ contact.email }}</a>
+linkedin :  <a :href="contact.linkedin" target="_blank" rel="noopener" class="link">{{ contact.linkedin }}</a>
+web      :  <a :href="contact.website" target="_blank" rel="noopener" class="link">{{ contact.website }}</a>
+
+# ────────────────────────────────────
+# "{{ contact.note }}"
+</pre>
   </div>
 </template>
 
 <script setup lang="ts">
 import contact from '@/data/contact.json'
 
-const content = `# contact.txt
+const header = `# contact.txt
 # ────────────────────────────────────
 
 name     :  ${contact.name} (${contact.handle})
-github   :  ${contact.github}
-email    :  ${contact.email}
-linkedin :  ${contact.linkedin}
-web      :  ${contact.website}
-
-# ────────────────────────────────────
-# "${contact.note}"
-`
+github   :  `
 </script>
 
 <style scoped>
@@ -60,4 +60,10 @@ web      :  ${contact.website}
   white-space: pre;
   overflow: auto;
 }
+
+.link {
+  color: var(--accent-teal);
+  text-decoration: none;
+}
+.link:hover { text-decoration: underline; }
 </style>

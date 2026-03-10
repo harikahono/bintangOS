@@ -1,5 +1,5 @@
 <template>
-  <div class="splash">
+  <div class="splash" @click="bootStore.skipBoot()" tabindex="0" @keydown.esc="bootStore.skipBoot()" ref="splashEl">
     <div class="splash-inner">
       <img src="/bintangos.webp" alt="BintangOS" class="amp-logo" />
       <div class="progress-wrap">
@@ -9,12 +9,18 @@
         <p class="progress-msg font-mono">{{ bootStore.getSplashMessage() }}</p>
       </div>
     </div>
+    <span class="skip-hint font-mono">ESC / click to skip</span>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useBootStore } from '@/stores/boot'
+
 const bootStore = useBootStore()
+const splashEl  = ref<HTMLElement>()
+
+onMounted(() => splashEl.value?.focus())
 </script>
 
 <style scoped>
@@ -23,8 +29,12 @@ const bootStore = useBootStore()
   height: 100%;
   background: var(--bg-deepest);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  outline: none;
+  position: relative;
 }
 
 .splash-inner {
@@ -32,6 +42,8 @@ const bootStore = useBootStore()
   flex-direction: column;
   align-items: center;
   gap: 48px;
+  flex: 1;
+  justify-content: center;
 }
 
 .amp-logo {
@@ -74,5 +86,12 @@ const bootStore = useBootStore()
   font-size: 11px;
   color: var(--text-dim);
   letter-spacing: 0.05em;
+}
+
+.skip-hint {
+  font-size: 10px;
+  color: #444;
+  padding-bottom: 16px;
+  flex-shrink: 0;
 }
 </style>
